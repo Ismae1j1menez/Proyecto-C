@@ -1,5 +1,5 @@
 # Proyecto-c
-Este es el repositorio donde se trabajar el proyecto de c, curso: IE-0117 Programación Bajo Plataformas Abiertas
+Este es el repositorio donde se trabajó el proyecto de c, curso: IE-0117 Programación Bajo Plataformas Abiertas
 
 Buenas profe y asistente.
 
