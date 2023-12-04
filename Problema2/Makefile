@@ -18,3 +18,6 @@ p2: $(C_Files2)
 
 p3:
 	# Comandos para compilar problem3
+
+clean:
+	rm -f $(Executable1) $(Executable2)
