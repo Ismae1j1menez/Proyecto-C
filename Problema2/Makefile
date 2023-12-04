@@ -13,7 +13,7 @@ p1: $(C_Files1)
 	./$(Executable1)
 
 p2: $(C_Files2)
-	$(GNUcompiler) $(C_Files2) -o $(Executable2)
+	$(GNUcompiler) $(C_Files2) -o $(Executable2) -lm 
 	./$(Executable2)
 
 p3:
