@@ -60,6 +60,42 @@ int es_convexo(Punto vertices[], int n) {
     return 1;
 }
 
+void swap(Punto *a, Punto *b) {
+    Punto temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void generar_permutaciones(Punto vertices[], int n, int inicio) {
+    if (inicio == n) {
+        if (es_convexo(vertices, n)) {
+            float suma_angulos = 0.0;
+            for (int i = 0; i < n; i++) {
+                Punto vector1 = crear_vector(vertices[i], vertices[(i + 1) % n]);
+                Punto vector2 = crear_vector(vertices[i], vertices[(i - 1 + n) % n]);
+                suma_angulos += angulo_entre_vectores(vector1, vector2);
+            }
+
+            if (fabs(suma_angulos - ((n - 2) * 180.0)) < 1e-6) {
+                for (int i = 0; i < n; i++) {
+                    Punto vector1 = crear_vector(vertices[i], vertices[(i + 1) % n]);
+                    Punto vector2 = crear_vector(vertices[i], vertices[(i - 1 + n) % n]);
+                    float angulo = angulo_entre_vectores(vector1, vector2);
+                    printf("Ángulo en vértice %d: %f grados\n", i + 1, angulo);
+                }
+                exit(0);
+            }
+        }
+        return;
+    }
+
+    for (int i = inicio; i < n; i++) {
+        swap(&vertices[inicio], &vertices[i]);
+        generar_permutaciones(vertices, n, inicio + 1);
+        swap(&vertices[inicio], &vertices[i]);
+    }
+}
+
 int main() {
     Punto p1 = {1, 2};
     Punto p2 = {4, 6};
@@ -77,5 +113,9 @@ int main() {
         mensaje = "no convexo";
     }
     printf("El polígono es %s\n", mensaje);
+
+    int num_vertices = sizeof(vertices) / sizeof(vertices[0]);
+
+    generar_permutaciones(vertices, num_vertices, 0);
     return 0;
 }
