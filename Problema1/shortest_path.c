@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include <string.h>
+
 
 // Esta macro es puesta aquí para que el tamaño máximo de la 
-// matriz sea conocida en la compilación y no se tenga que usar una
-// memoria dinámica para establecer la matriz
-#define MAX_CITIES 100
+// matriz sea conocida en la compilación y solo se ingresan los valores
+// en la matriz
+#define MAX_CITIES 30
 int distances[MAX_CITIES][MAX_CITIES];
 
 // Inicialización de variables globales con valores definidos
@@ -87,7 +87,29 @@ void input_num_len_cities_matrix() {
     // el motivo por el cual termino el programa
     int num_cities;
     printf("Ingrese el número de ciudades: ");
-    scanf("%d", &num_cities);
+    // Si se recibe un 0 es que no se pudo interpretar correctamente 
+    // lo ingresado por el usuario, al contrario de sí se recibe 1, 
+    // por lo que se revisa si lo que retorna el scanf, como se espera, 
+    // un entero entonces si es 1 se interpreta un entero correctamente
+    if (scanf("%d", &num_cities) != 1) {
+        printf("Entrada inválida. Por favor, ingrese un número entero.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (num_cities < 0) {
+        printf("El número no puede ser negativo.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (num_cities > 30) {
+        printf("Se admiten máximo 30 ciudades.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (num_cities == 0) {
+        printf("No hay ciudades, por lo que no hay camino para analizar.\n");
+        exit(EXIT_FAILURE);
+    }
 
     for (int i = 0; i < num_cities; i++) {
         for (int j = 0; j < num_cities; j++) {
@@ -98,7 +120,20 @@ void input_num_len_cities_matrix() {
                 distances[i][j] = 0;
             } else {
                 printf("Ingrese la distancia de la ciudad %c a la ciudad %c (-1 si no hay conexión): ", 'A' + i, 'A' + j);
-                scanf("%d", &distances[i][j]);
+                if (scanf("%d", &distances[i][j]) != 1) {
+                    printf("Entrada inválida. Por favor, ingrese un número entero.\n");
+                    exit(EXIT_FAILURE);
+                }
+
+                if (distances[i][j] < 0 && distances[i][j] != -1) {
+                    printf("No se aceptan distancias negativas.\n");
+                    exit(EXIT_FAILURE);
+                }
+
+                if (distances[i][j] == 0) {
+                    printf("Si entre las ciudades no hay camino, ingresar -1.\n");
+                    exit(EXIT_FAILURE);
+                }
             }
         }
     }
@@ -137,6 +172,13 @@ void input_num_len_cities_matrix() {
 
     int origin_city_index = origin_city - 'A';
     int dest_city_index = dest_city - 'A';
+
+    // Se revisa que la entrada es una letra valida
+    if (origin_city_index < 0 || origin_city_index >= num_cities ||
+        dest_city_index < 0 || dest_city_index >= num_cities) {
+        printf("\nEntrada inválida. Por favor, ingrese letras que representen ciudades válidas, solo mayusculas.\n");
+        exit(EXIT_FAILURE);
+    }
 
     // Aquí se llaman las funciones hechas en el código anterior
     find_shortest_path(origin_city_index, dest_city_index, num_cities, 0, 0);
