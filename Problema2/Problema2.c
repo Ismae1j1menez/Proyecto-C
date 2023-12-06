@@ -1,3 +1,21 @@
+// Programa que se encarga de buscar polígonos convexos
+// a partir de la entrada de coordenadas de un usuario.
+//
+// Se utilizan permutaciones para hacer todos los posibles casos
+// ya que se pide que se ingresen los vectores en desorden.
+// 
+// Se utiliza una funcion de "es_convexo" en conjunto con la teoría
+// de suma de ángulos internos para determinar si el polígono
+// dentro de la función de permutaciones es válido.
+//
+// Para determinar la convexividad del polígono y sus ángulos se
+// utilizo el producto cruz y el producto punto.
+//
+// Estudiantes:
+// Oscar Porras Silesky / C16042
+// Ismael Jimenez Carballo / B94009
+// Sebastián Carvajal Sancho / C01764
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
