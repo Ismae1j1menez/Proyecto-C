@@ -198,9 +198,17 @@ int main() {
     // Se piden las coordenadas de cada vértice del polígono.
     for (i = 0; i < n; i++) {
         printf("Ingrese el valor x de la coordenada %d: ", i + 1);
-        scanf("%f", &vertices[i].x);
+        if (scanf("%f", &vertices[i].x) != 1){
+            printf("Ingrese un número válido.\n");
+            exit(0);
+        }
+
         printf("Ingrese el valor y de la coordenada %d: ", i + 1);
-        scanf("%f", &vertices[i].y);
+
+        if (scanf("%f", &vertices[i].y) != 1){
+            printf("Ingrese un número válido.\n");
+            exit(0);
+        }
     }
 
     // Llamado a función para generar permutaciones y verificar cada una.
