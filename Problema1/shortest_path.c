@@ -82,9 +82,6 @@ void print_best_path(int destination) {
 
 // Función llamada en el main
 void input_num_len_cities_matrix() {
-    // Falta revisar que se ingresen valores adecuados
-    // Por lo menos que se salga del problema y se indique 
-    // el motivo por el cual termino el programa
     int num_cities;
     printf("Ingrese el número de ciudades: ");
     // Si se recibe un 0 es que no se pudo interpretar correctamente 
@@ -112,7 +109,7 @@ void input_num_len_cities_matrix() {
     }
 
     for (int i = 0; i < num_cities; i++) {
-        for (int j = 0; j < num_cities; j++) {
+        for (int j = i + 1; j < num_cities; j++) {
             // Condición de que siempre que i == j 
             // los valores es 0, porque no hay distancia
             // entre las dos ciudades
@@ -134,15 +131,15 @@ void input_num_len_cities_matrix() {
                     printf("Si entre las ciudades no hay camino, ingresar -1.\n");
                     exit(EXIT_FAILURE);
                 }
+
+                // Para que refleje el valor y no hayan incongruencias
+                distances[j][i] = distances[i][j];
             }
         }
     }
 
     printf("\nMatriz de Distancias:\n");
     printf("  ");
-    // Para identificar las ciudades en la matriz, recordar 
-    // si es posible que se acomode adecuadamente para distancias
-    // muy grandes
     for (int j = 0; j < num_cities; j++) {
         printf("%3c", 'A' + j);
     }
@@ -173,10 +170,12 @@ void input_num_len_cities_matrix() {
     int origin_city_index = origin_city - 'A';
     int dest_city_index = dest_city - 'A';
 
-    // Se revisa que la entrada es una letra valida
+    // Se revisa que la entrada es una letra válida, es decir mayúscula que 
+    // representa una ciudad, o que la letra mayúscula este definida en la matriz
     if (origin_city_index < 0 || origin_city_index >= num_cities ||
         dest_city_index < 0 || dest_city_index >= num_cities) {
         printf("\nEntrada inválida. Por favor, ingrese letras que representen ciudades válidas, solo mayusculas.\n");
+        printf("\nLa ciudad también debe estar dentro de la tabla definida.\n");
         exit(EXIT_FAILURE);
     }
 
@@ -186,9 +185,13 @@ void input_num_len_cities_matrix() {
     print_best_path(dest_city_index);
 }
 
-// Main, revisar si la función input_num_len_cities_matrix()
 // Puede ser el main
 int main() {
-    input_num_len_cities_matrix();
+    char salir = 's';
+    do {
+        input_num_len_cities_matrix();
+        printf("Desea calcular otra ruta?, s/n ");
+		scanf(" %c", &salir);
+		} while(salir == 's' || salir == 'S');
     return 0;
 }
