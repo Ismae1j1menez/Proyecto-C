@@ -1,7 +1,7 @@
 GNUcompiler := gcc
-C_Files1 := shortest_path.c
-C_Files2 := Problema2.c
-C_Files3 := mem_din.c
+C_Files1 := proyecto1.c
+C_Files2 := proyecto2.c
+C_Files3 := proyecto3.c
 Executable := exe
 
 all: compile_all
