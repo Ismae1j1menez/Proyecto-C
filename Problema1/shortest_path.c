@@ -1,3 +1,16 @@
+// Ismael Jimenez Carballo-B94009
+// Oscar Gabriel Porras Silesky – C16042
+// Sebastián José Carvajal Sancho – C01764
+/* 
+Este programa tiene el objetivo de encontrar la ruta más
+corta entre diferentes ciudades, donde hay diferentes posibilidades
+de llegar al mismo destino, la lógica se basa en una matriz y en iterar
+todos los caminos posibles hasta encontrar la ruta más corta, las ciudades
+se identifican por letra A, B, C, donde máximo se permiten 27 ciudades
+porque al usar letras mayúsculas solamente se limita a las 27 letras
+del abecedario en mayúscula.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -6,7 +19,7 @@
 // Esta macro es puesta aquí para que el tamaño máximo de la 
 // matriz sea conocida en la compilación y solo se ingresan los valores
 // en la matriz
-#define MAX_CITIES 30
+#define MAX_CITIES 27
 int distances[MAX_CITIES][MAX_CITIES];
 
 // Inicialización de variables globales con valores definidos
@@ -98,7 +111,7 @@ void input_num_len_cities_matrix() {
         exit(EXIT_FAILURE);
     }
 
-    if (num_cities > 30) {
+    if (num_cities > 27) {
         printf("Se admiten máximo 30 ciudades.\n");
         exit(EXIT_FAILURE);
     }
